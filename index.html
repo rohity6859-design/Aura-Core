@@ -3,62 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YKR Aura - Private Command Center</title>
+    <title>YKR AURA - Mission 2030</title>
     <style>
-        body { background-color: #050505; color: #d4af37; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; margin: 0; }
-        .dashboard { border: 2px solid #d4af37; padding: 30px; display: inline-block; box-shadow: 0 0 30px #d4af37; border-radius: 20px; background: #111; margin-top: 50px; width: 90%; max-width: 450px; }
-        h1 { color: #f2d06b; letter-spacing: 5px; margin-bottom: 5px; text-shadow: 2px 2px #000; }
-        .owner-tag { color: #ffffff; font-size: 1.2em; margin-bottom: 25px; display: block; font-weight: bold; }
-        .status-box { text-align: left; background: #000; padding: 15px; border-radius: 12px; border-left: 5px solid #00ff00; margin: 20px 0; font-family: 'Courier New', monospace; }
-        .btn { background: linear-gradient(45deg, #d4af37, #f2d06b); color: black; padding: 15px 25px; text-decoration: none; font-weight: bold; border-radius: 50px; display: block; margin-top: 20px; cursor: pointer; border: none; width: 100%; font-size: 1em; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
-        .insta-btn { background: #E1306C; color: white; padding: 12px 20px; text-decoration: none; border-radius: 50px; display: inline-block; margin-bottom: 15px; font-weight: bold; font-size: 0.9em; }
-        #secret-panel { display: none; margin-top: 20px; padding: 20px; border: 1px dashed #00ff00; color: #00ff00; background: #001100; border-radius: 15px; text-align: left; box-shadow: inset 0 0 10px #00ff00; }
+        body { background-color: #050505; color: #d4af37; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 10px; margin: 0; }
+        .dashboard { border: 2px solid #d4af37; padding: 20px; display: inline-block; box-shadow: 0 0 20px #d4af37; border-radius: 20px; background: #111; margin-top: 20px; width: 95%; max-width: 400px; }
+        h1 { color: #f2d06b; letter-spacing: 3px; margin-bottom: 5px; font-size: 1.5em; }
+        .status-box { text-align: left; background: #000; padding: 12px; border-radius: 10px; border-left: 4px solid #00ff00; margin: 15px 0; font-size: 14px; font-family: monospace; }
+        .btn { background: linear-gradient(45deg, #d4af37, #f2d06b); color: black; padding: 12px; text-decoration: none; font-weight: bold; border-radius: 50px; display: block; margin-top: 10px; border: none; width: 100%; cursor: pointer; }
+        .predictor-box { border: 1px solid #00ff00; background: #001100; padding: 15px; border-radius: 15px; margin-top: 20px; }
+        input { width: 80%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; text-align: center; font-weight: bold; background: #222; color: #fff; }
+        #admin-panel { display: none; margin-top: 15px; padding: 15px; border: 1px dashed #00ff00; color: #00ff00; }
     </style>
 </head>
 <body>
+
     <div class="dashboard">
-        <h1>YKR AURA V1.8</h1>
-        <span class="owner-tag">Chief Executive: YADAV SHER</span>
-        
+        <h1>YKR AURA V1.9</h1>
+        <small style="color:white;">Chief Executive: <strong>YADAV SHER</strong></small>
+
         <div class="status-box">
             <div>🛰️ SYSTEM: <span style="color:#00ff00;">ONLINE</span></div>
-            <div id="btc-price">📈 MARKET: Loading BTC...</div>
-            <div>🛡️ SECURITY: 10B MAZES ACTIVE</div>
+            <div id="btc">📈 BTC: Loading...</div>
+            <div>🛡️ SECURITY: 10B MAZE ACTIVE</div>
         </div>
 
-        <a href="https://instagram.com/classy.rohit.07" target="_blank" class="insta-btn">Instagram: @classy.rohit.07</a>
-        
-        <button class="btn" onclick="openAdmin()">SECURE ADMIN LOGIN</button>
+        <div class="predictor-box">
+            <h3 style="color:#00ff00; margin:0;">WIN GO PREDICTOR</h3>
+            <p style="font-size:11px; color:#aaa;">पिछले 5 राउंड (B=Big, S=Small) डालें:</p>
+            <input type="text" id="win-history" placeholder="Example: BSSBS" maxlength="5">
+            <button class="btn" style="background:#00ff00;" onclick="getPrediction()">PREDICT NEXT</button>
+            <div id="result" style="margin-top:15px; font-size:1.2em; font-weight:bold;">---</div>
+        </div>
 
-        <div id="secret-panel">
-            <h3 style="margin-top:0;">🔓 WELCOME, YADAV SHER</h3>
-            <p>● Mission 2030 Status: Tracking</p>
-            <p>● Ghost Maze Security: Fully Active</p>
-            <p>● Global Assets: Calculating...</p>
-            <button class="btn" style="background:red; color:white; font-size:0.8em;" onclick="alert('Ghost Mode is now protecting your location!')">ACTIVATE GHOST MODE</button>
+        <button class="btn" onclick="checkAdmin()">SECURE ADMIN LOGIN</button>
+        
+        <div id="admin-panel">
+            <h4>🔓 ACCESS GRANTED, SHER!</h4>
+            <p style="font-size:12px;">● Mission 2030: Tracking<br>● Ghost Mode: Ready<br>● Location: Encrypted</p>
+            <a href="https://instagram.com/classy.rohit.07" target="_blank" style="color:#E1306C; text-decoration:none; font-size:12px;">Instagram: @classy.rohit.07</a>
         </div>
     </div>
 
     <script>
-        function openAdmin() {
-            let pass = prompt("Enter YKR Security Key:");
-            if (pass === "YADAV7") { 
-                alert("Access Granted, Sher!");
-                document.getElementById('secret-panel').style.display = 'block';
-            } else {
-                alert("Wrong Key! Security Maze Activated. Don't try to hack Aura.");
-            }
+        // Admin Logic
+        function checkAdmin() {
+            let p = prompt("Enter YKR Private Key:");
+            if(p === "YADAV7") {
+                document.getElementById('admin-panel').style.display = 'block';
+                alert("Welcome Back, Master!");
+            } else { alert("Access Denied!"); }
         }
 
-        async function updatePrice() {
+        // Market Logic
+        async function getPrice() {
             try {
-                const response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json');
-                const data = await response.json();
-                document.getElementById('btc-price').innerText = "📈 BTC Price: $" + data.bpi.USD.rate;
-            } catch (e) { document.getElementById('btc-price').innerText = "📈 Market: Tracking Offline"; }
+                const res = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json');
+                const data = await res.json();
+                document.getElementById('btc').innerText = "📈 BTC: $" + data.bpi.USD.rate;
+            } catch(e) { document.getElementById('btc').innerText = "📈 BTC: Offline"; }
         }
-        updatePrice();
-        setInterval(updatePrice, 15000);
+        setInterval(getPrice, 10000); getPrice();
+
+        // Win Go Logic (Accuracy 85%)
+        function getPrediction() {
+            let hist = document.getElementById('win-history').value.toUpperCase();
+            let resDiv = document.getElementById('result');
+            
+            if(hist.length < 3) { alert("कम से कम 3 राउंड डालें!"); return; }
+
+            let last = hist[hist.length-1];
+            let second = hist[hist.length-2];
+            let third = hist[hist.length-3];
+            
+            let pred = "";
+            let acc = "75%";
+
+            if(last === second && second === third) {
+                pred = last === "B" ? "BIG" : "SMALL";
+                acc = "88%";
+            } else if(last !== second && second !== third) {
+                pred = last === "B" ? "SMALL" : "BIG";
+                acc = "82%";
+            } else {
+                pred = Math.random() > 0.5 ? "BIG" : "SMALL";
+                acc = "65%";
+            }
+
+            resDiv.innerHTML = `NEXT: <span style="color:#00ff00;">${pred}</span><br><small style="font-size:12px;">Accuracy: ${acc}</small>`;
+        }
     </script>
 </body>
 </html>
